@@ -16,19 +16,17 @@ _asm_main:
     mov     eax, prompt
     call    print_string
     call    read_int                    ; read int into eax reg
-    mov     ebx, eax                    ; save int for later use
     mov     edx, 0                      ; keep active bits in edx reg
     mov     ecx, 32                     
 
 count_bits_loop:
-    shl     eax, 1                      ; shift to left, lost bit kept in CF(carry flag)
+    rol     eax, 1                      ; rotate to left, msb bit kept in CF(carry flag)
     jnc     skip_inc                    ; if CF is not 1 skip increment step
     inc     edx
 skip_inc:
     loop count_bits_loop
 
-    mov     eax, ebx                    ; output result
-    call    print_int
+    call    print_int                   ; output result
     mov     eax, outmsg1
     call    print_string
     mov     eax, edx
