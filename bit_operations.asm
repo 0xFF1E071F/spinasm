@@ -35,12 +35,31 @@ _asm_main:
     or      eax, edx
     mov     [input], eax
 
-    mov     eax, resmsg1                ; output result
+    mov     eax, resmsg1                ; output OR op result
     call    print_string
     mov     eax, [input]
     call    print_int
     call    print_nl
+
+    mov     eax, indmsg2                ; output indmsg2
+    call    print_string
+    call    read_int                    ; read index value
+    mov     [index], eax
     
+    mov     eax, [input]                ; execute and op
+    mov     edx, 1
+    mov     cl, [index]
+    shl     edx, cl
+    not     edx
+    and     eax, edx
+    mov     [input], eax
+
+    mov     eax, resmsg2                ; output AND op result
+    call    print_string
+    mov     eax, [input]
+    call    print_int
+    call    print_nl    
+
     popa
     mov     eax, 0
     leave
