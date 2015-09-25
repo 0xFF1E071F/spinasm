@@ -21,10 +21,8 @@ _asm_main:
 
 count_bits_loop:
     rol     eax, 1                      ; rotate to left, msb bit kept in CF(carry flag)
-    jnc     skip_inc                    ; if CF is not 1 skip increment step
-    inc     edx
-skip_inc:
-    loop count_bits_loop
+    adc     edx, 0                      ; use adc instruction to add the CF value
+    loop    count_bits_loop
 
     call    print_int                   ; output result
     mov     eax, outmsg1
