@@ -21,17 +21,14 @@ _asm_main:
     mov     eax, prompt1
     call    print_string
 
-    mov     ebx, num1               ; store address of num1 into ebx
-    mov     ecx, ret_addr
-    jmp     short get_int
-
-ret_addr:
+    mov     ebx, num1
+    call    get_int
+    
     mov     eax, prompt2
-    call    print_string
+    call    print_string    
 
     mov     ebx, num2
-    mov     ecx, $ + 7              ; ecx = this addr + 7
-    jmp     short get_int
+    call    get_int    
 
     mov     eax, [num1]
     add     eax, [num2]
@@ -59,4 +56,4 @@ ret_addr:
 get_int:
     call    read_int
     mov     [ebx], eax
-    jmp     ecx
+    ret
