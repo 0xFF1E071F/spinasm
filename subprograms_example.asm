@@ -22,12 +22,12 @@ _asm_main:
     enter   0, 0
     pusha
 
-    mov     edx, 1
+    mov     edx, 1                  ; edx is i in pseudo-code
 while_loop:
-    push    edx
-    push    dword input
+    push    edx                     ; save i on stack
+    push    dword input             ; push address of input on stack
     call    get_int
-    add     esp, 8
+    add     esp, 8                  ; remove i and &input from stack
 
     mov     eax, [input]
     cmp     eax, 0
@@ -39,9 +39,9 @@ while_loop:
     jmp     short while_loop
 
 end_while:
-    push    dword [sum]
+    push    dword [sum]             ; push [sum] to stack
     call    print_sum
-    pop     ecx
+    pop     ecx                     ; remove [sum] from stack
 
     popa
     leave
@@ -63,10 +63,10 @@ get_int:
 
     call    read_int
     mov     ebx, [ebp+8]
-    mov     [ebx], eax
+    mov     [ebx], eax              ; store input in memory
     
     pop     ebp
-    ret
+    ret                             ; jump back to caller
 
 segment .data
     result  db  "The sum is ", 0
