@@ -16,7 +16,8 @@ segment .bss
 ; print_sum(num);
 
 segment .text
-    global _asm_main
+    global  _asm_main
+    extern  get_int, print_sum  
 
 _asm_main:
     enter   0, 0
@@ -45,43 +46,4 @@ end_while:
 
     popa
     leave
-    ret
-
-segment .data
-    prompt  db  ") Enter an integer number (0 to quit): ", 0
-
-segment .text
-get_int:
-    push    ebp
-    mov     ebp, esp
-
-    mov     eax, [ebp+12]
-    call    print_int
-
-    mov     eax, prompt
-    call    print_string
-
-    call    read_int
-    mov     ebx, [ebp+8]
-    mov     [ebx], eax              ; store input in memory
-    
-    pop     ebp
-    ret                             ; jump back to caller
-
-segment .data
-    result  db  "The sum is ", 0
-
-segment .text
-print_sum:
-    push    ebp
-    mov     ebp, esp
-    
-    mov     eax, result
-    call    print_string
-
-    mov     eax, [ebp+8]
-    call    print_int
-    call    print_nl
-
-    pop     ebp
     ret
