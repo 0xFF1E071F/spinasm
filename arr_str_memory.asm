@@ -66,3 +66,30 @@ quit:
     pop     edi
     leave
     ret
+
+; return the size of a string
+; unsigned asm_strlen(const char *);
+; parameter
+; src - pointer to a string
+; returns:
+; natural number
+
+%define     src     [ebp+8]
+
+asm_strlen:
+    enter   0, 0
+    push    edi
+
+    mov     edi, src
+    mov     ecx, 0FFFFFFFFh             ; use largest possible value
+    xor     al, al                      ; ls 8 bits of eax = 0
+    cld
+
+    repnz   scasb                       ; scan for terminating 0
+
+    mov     eax, 0FFFFFFFEh             ; E not F, repnz will be go one step off
+    sub     eax, ecx
+
+    pop     edi
+    leave
+    ret
