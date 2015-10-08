@@ -93,3 +93,33 @@ asm_strlen:
     pop     edi
     leave
     ret
+
+; copies a string 
+; void asm_copy(char *dest, const char *src);
+; parameters:
+; dest - pointer, where to copy
+; src  - pointer, from where to copy
+
+%define     dest    [ebp+8]
+%define     src     [ebp+12]
+
+asm_strcpy:
+    enter   0, 0
+    push    esi
+    push    edi
+
+    mov     edi, dest
+    mov     esi, src
+    
+    cld
+
+cpy_loop:
+    lodsb
+    stosd
+    or      al, al
+    jnz     cpy_loop
+
+    pop     edi
+    pop     esi
+    leave
+    ret
