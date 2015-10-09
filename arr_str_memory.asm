@@ -47,7 +47,7 @@ asm_find:
     enter   0, 0
     push    edi
 
-    mov     eax, target
+    mov     eax, dest
     mov     edi, src
     mov     ecx, sz
     
