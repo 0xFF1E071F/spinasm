@@ -11,7 +11,7 @@ int main(void) {
     n = read_doubles(stdin, arr, MAX);
 
     for (i = 0; i < n; i++)
-        printf("%3d %g\n", i, a[i]);
+        printf("%3d %g\n", i, arr[i]);
 
     return 0;
 }
