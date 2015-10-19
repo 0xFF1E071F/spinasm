@@ -9,6 +9,9 @@ int main(void) {
     unsigned max;
     int* a;
 
+    printf("How many primes to find?");
+    scanf("%d", &max);
+
     a = calloc(sizeof(int), max);
 
     if (a) {
